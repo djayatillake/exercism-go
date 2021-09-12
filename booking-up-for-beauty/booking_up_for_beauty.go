@@ -1,9 +1,6 @@
 package booking
 
-import (
-	"time"
-	"fmt"
-)
+import "time"
 
 const Form = "1/2/2006 15:04:05"
 
@@ -31,9 +28,7 @@ func IsAfternoonAppointment(date string) bool {
 
 // Description returns a formatted string of the appointment time
 func Description(date string) string {
-	t := Schedule(date)
-	return fmt.Sprintf("You have an appointment on %s, %s %d, %d, at %d:%d.", 
-							t.Weekday(), t.Month(), t.Day(), t.Year(), t.Hour(), t.Minute())
+	return Schedule(date).Format("You have an appointment on Monday, January 2, 2006, at 15:04.")
 }
 
 // AnniversaryDate returns a Time with this year's anniversary
