@@ -10,10 +10,7 @@ type Car struct {
 
 // NewCar creates a new remote controlled car with full battery and given specifications.
 func NewCar(speed, batteryDrain int) Car {
-	var New Car
-	New.speed = speed
-	New.batteryDrain = batteryDrain
-	New.battery = 100
+	New := Car{speed: speed, batteryDrain: batteryDrain, battery: 100}
 	return New
 }
 
@@ -35,8 +32,8 @@ func NewTrack(distance int) Track {
 // the car will not move but use the leftover battery.
 func Drive(car Car) Car {
 	if car.battery >= car.batteryDrain {
-		car.distance = car.speed
-		car.battery = car.battery - car.batteryDrain
+		car.distance += car.speed
+		car.battery -= car.batteryDrain
 		return car
 	} else {
 		return car
