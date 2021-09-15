@@ -18,15 +18,12 @@ type Track struct {
 
 // CreateCar creates a new car with given specifications.
 func CreateCar(speed, batteryDrain int) *Car {
-	New := Car{speed: speed, batteryDrain: batteryDrain, battery: 100}
-	return &New
+	return &Car{speed: speed, batteryDrain: batteryDrain, battery: 100}
 }
 
 // CreateTrack creates a new track with given distance.
 func CreateTrack(distance int) Track {
-	var New Track
-	New.distance = distance
-	return New
+	return Track{distance: distance}
 }
 
 // Drive drives the car one time.
@@ -50,5 +47,5 @@ func (car *Car) DisplayDistance() string {
 
 // DisplayBattery displays the battery level.
 func (car *Car) DisplayBattery() string {
-	return fmt.Sprint("Battery at ", car.battery, "%")
+	return fmt.Sprintf("Battery at %d%%", car.battery)
 }
