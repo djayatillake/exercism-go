@@ -35,16 +35,10 @@ func PrefilledSlice(value, length int) []int {
 
 // RemoveItem removes an item from a slice by modifying the existing slice.
 func RemoveItem(slice []int, index int) []int {
-	if slice == nil {
-		return nil
-	} else {
-		switch {
-		case index > len(slice)-1 || index < 0:
-			return slice
-		case index == len(slice)-1:
-			return slice[:index]
-		default:
-			return append(slice[:index], slice[index+1:]...)
-		}
+	switch {
+	case index > len(slice)-1 || index < 0:
+		return slice
+	default:
+		return append(slice[:index], slice[index+1:]...)
 	}
 }
