@@ -9,23 +9,21 @@ import (
 
 // Valid tests whether an input string is a valid id number based on the Luhn algorithm
 func Valid(id string) bool {
-	trimmed_id := strings.TrimSpace(id)
+	trimmed_id := strings.TrimSpace(strings.ReplaceAll(id, " ", ""))
 	if len(trimmed_id) < 2 {
 		return false
 	}
 
-	id_slice := []rune(strings.ReplaceAll(trimmed_id, " ", ""))
+	id_slice := []rune(trimmed_id)
 	sum := 0
 	even_len := len(id_slice)%2 == 0
 
 	for i, v := range id_slice {
-		string_dig := string(v)
-
 		if !unicode.IsDigit(v) {
 			return false
 		}
 
-		string_dig_int, _ := strconv.Atoi(string_dig)
+		string_dig_int, _ := strconv.Atoi(string(v))
 
 		if even_len {
 			if i%2 == 0 {
@@ -44,6 +42,7 @@ func Valid(id string) bool {
 	return sum%10 == 0
 }
 
+// multi9 helper function ONLY INTENDED TO TAKE SINGLE DIGIT INTS
 func multi9(digit int) int {
 	if digit*2 > 9 {
 		return digit*2 - 9
