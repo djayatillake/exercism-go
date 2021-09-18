@@ -10,9 +10,6 @@ func IsIsogram(word string) bool {
 			strings.ReplaceAll(
 				strings.ReplaceAll(word, " ", ""),
 				"-", "")))
-	if word_c == "" {
-		return true
-	}
 	letter_count := make(map[string]int)
 	word_c_s := []rune(word_c)
 	for i := range word_c_s {
