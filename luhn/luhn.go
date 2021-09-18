@@ -25,18 +25,10 @@ func Valid(id string) bool {
 
 		string_dig_int, _ := strconv.Atoi(string(v))
 
-		if even_len {
-			if i%2 == 0 {
-				sum += multi9(string_dig_int)
-			} else {
-				sum += string_dig_int
-			}
+		if even_len && i%2 == 0 || !even_len && i%2 == 1 {
+			sum += multi9(string_dig_int)
 		} else {
-			if i%2 == 1 {
-				sum += multi9(string_dig_int)
-			} else {
-				sum += string_dig_int
-			}
+			sum += string_dig_int
 		}
 	}
 	return sum%10 == 0
