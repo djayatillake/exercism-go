@@ -10,11 +10,11 @@ func IsIsogram(word string) bool {
 			strings.ReplaceAll(
 				strings.ReplaceAll(word, " ", ""),
 				"-", "")))
-	letter_count := make(map[string]int)
+	letter_count := map[rune]int{}
 	word_c_s := []rune(word_c)
 	for i := range word_c_s {
-		letter_count[string(word_c_s[i])] += 1
-		if letter_count[string(word_c_s[i])] > 1 {
+		letter_count[word_c_s[i]] += 1
+		if letter_count[word_c_s[i]] > 1 {
 			return false
 		}
 	}
