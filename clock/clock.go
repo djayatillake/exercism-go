@@ -8,10 +8,12 @@ type Clock struct {
 	min int
 }
 
+const day_mins int = 1440
+
 // New creates a clock, with min input and returns it
 func New(hour, min int) Clock {
-	min_t := (min+hour*60)%1440 + 1440
-	return Clock{min_t % 1440}
+	min_t := (min+hour*60)%day_mins + day_mins
+	return Clock{min_t % day_mins}
 }
 
 // Stringer method presents the time of a clock in "HH:MM" format
