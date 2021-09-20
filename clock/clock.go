@@ -21,8 +21,7 @@ func (c Clock) String() string {
 
 // Add method adds minutes to the time of a clock
 func (c Clock) Add(min int) Clock {
-	new_min := c.min + min
-	return New(0, new_min)
+	return New(0, c.min+min)
 }
 
 // Subtract method adds minutes to the time of a clock
