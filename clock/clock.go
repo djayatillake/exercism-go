@@ -8,7 +8,7 @@ type Clock struct {
 	min int
 }
 
-// New creates a clock, with hour and min inputs and outputs time as string
+// New creates a clock, with min input and returns it
 func New(hour, min int) Clock {
 	min_t := (min+hour*60)%1440 + 1440
 	return Clock{min_t % 1440}
