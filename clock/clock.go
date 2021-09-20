@@ -25,6 +25,6 @@ func (c Clock) Add(min int) Clock {
 }
 
 // Subtract method adds minutes to the time of a clock
-func (clock Clock) Subtract(min int) Clock {
-	return clock.Add(-min)
+func (c Clock) Subtract(min int) Clock {
+	return c.Add(-min)
 }
