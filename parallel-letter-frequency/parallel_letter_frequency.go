@@ -1,5 +1,9 @@
 package letter
 
+import (
+	"sync"
+)
+
 // FreqMap records the frequency of each rune in a given text.
 type FreqMap map[rune]int
 
@@ -14,16 +18,24 @@ func Frequency(s string) FreqMap {
 }
 
 func ConcurrentFrequency(s []string) FreqMap {
+	var wg sync.WaitGroup
 	mf := FreqMap{}
-	c := make(chan FreqMap)
+	wg.Add(len(s))
+	c := make(chan FreqMap, 3)
+
 	for _, str := range s {
-		go func(w string) {
+		go func(waitgroup *sync.WaitGroup, w string) {
 			c <- Frequency(w)
-		}(str)
+			waitgroup.Done()
+		}(&wg, str)
 	}
 
-	for _ = range s {
-		m := <-c
+	go func() {
+		wg.Wait()
+		close(c)
+	}()
+
+	for m := range c {
 		for k, v := range m {
 			mf[k] += v
 		}
