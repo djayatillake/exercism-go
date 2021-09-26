@@ -27,6 +27,7 @@ var items = []string{
 	"twelve Drummers Drumming",
 }
 
+// Verse returns one of the 12 verses as input
 func Verse(no int) (ret string) {
 	ret += fmt.Sprintf("On the %s day of Christmas my true love gave to me: ", order[no-1])
 	for i := no - 1; i > -1; i-- {
@@ -42,6 +43,7 @@ func Verse(no int) (ret string) {
 	return
 }
 
+// Song returns all twelve verses
 func Song() (ret string) {
 	for i := 1; i < 13; i++ {
 		ret += Verse(i) + "\n"
