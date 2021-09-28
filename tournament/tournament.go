@@ -39,7 +39,7 @@ func (t *team) update(outcome string) {
 }
 
 // result_opp for other team
-func result_opp(outcome string) (err error, ret string) {
+func result_opp(outcome string) (ret string, err error) {
 	switch outcome {
 	case "win":
 		ret = "loss"
@@ -48,9 +48,9 @@ func result_opp(outcome string) (err error, ret string) {
 	case "draw":
 		ret = "draw"
 	default:
-		return errors.New("invalid outcome, needs to be win loss or draw"), ""
+		return "", errors.New("invalid outcome, needs to be win loss or draw")
 	}
-	return nil, ret
+	return ret, nil
 }
 
 // league_entry checks for team in league and updates or inserts as relevant
@@ -66,7 +66,7 @@ func (l league) league_entry(t, o string) {
 }
 
 // parse_results takes a result delimited by ; and inputs it into the league
-func (l *league) parse_result(result string) (err error) {
+func (l league) parse_result(result string) (err error) {
 	result_sl := strings.Split(result, ";")
 	if len(result_sl) != 3 {
 		return errors.New("not enough values in result")
@@ -77,7 +77,7 @@ func (l *league) parse_result(result string) (err error) {
 		return errors.New("teams in result are the same")
 	}
 	outcome_a := strings.TrimSpace(result_sl[2])
-	err, outcome_b := result_opp(outcome_a)
+	outcome_b, err := result_opp(outcome_a)
 	if err != nil {
 		return err
 	}
