@@ -38,10 +38,7 @@ func New(input string) (*Matrix, error) {
 
 // Set method sets one cell of a Matrix
 func (m Matrix) Set(row, column, value int) bool {
-	if len(m) == 0 {
-		return false
-	}
-	if row > len(m)-1 || row < 0 || column > len(m[0])-1 || column < 0 {
+	if row > len(m)-1 || row < 0 || column > len(m[0])-1 || column < 0 || len(m) == 0 {
 		return false
 	}
 	m[row][column] = value
@@ -65,10 +62,8 @@ func (m Matrix) Cols() [][]int {
 	transpose := make([][]int, len(m[0]))
 	for i, _ := range m[0] {
 		transpose[i] = make([]int, len(m))
-	}
-	for i, row := range m {
-		for j, col := range row {
-			transpose[j][i] = col
+		for j, _ := range m {
+			transpose[i][j] = m[j][i]
 		}
 	}
 	return transpose
