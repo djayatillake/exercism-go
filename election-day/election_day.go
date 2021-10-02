@@ -7,7 +7,7 @@ import "fmt"
 func NewVoteCounter(initialVotes int) *int {
 	var counter *int
 	counter = &initialVotes
-	return counter
+	return counter // could just return &initialVotes w/o above two lines
 }
 
 // VoteCount extracts the number of votes from a counter.
@@ -21,7 +21,7 @@ func VoteCount(counter *int) int {
 // IncrementVoteCount increments the value in a vote counter
 func IncrementVoteCount(counter *int, increment int) {
 	if counter != nil {
-		*counter += 2
+		*counter = VoteCount(counter) + increment
 	}
 }
 
@@ -29,7 +29,7 @@ func IncrementVoteCount(counter *int, increment int) {
 func NewElectionResult(candidateName string, votes int) *ElectionResult {
 	var new *ElectionResult
 	new = &ElectionResult{Name: candidateName, Votes: votes}
-	return new
+	return new // could directly return rhs of line above instead of having above two lines
 }
 
 // DisplayResult creates a message with the result to be displayed
