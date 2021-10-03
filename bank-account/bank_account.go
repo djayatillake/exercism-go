@@ -35,14 +35,9 @@ func (a *Account) Balance() (int, bool) {
 
 // Deposit method returns the balance of the account
 func (a *Account) Deposit(amount int) (int, bool) {
-	if a == nil {
+	if a == nil || !a.open {
 		return 0, false
 	}
-	a.mu.RLock()
-	if !a.open {
-		return a.balance, false
-	}
-	a.mu.RUnlock()
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	if a.balance+amount < 0 {
