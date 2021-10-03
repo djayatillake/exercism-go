@@ -28,6 +28,8 @@ func (a *Account) Balance() (int, bool) {
 	if a == nil || !a.open {
 		return 0, false
 	}
+	a.mu.RLock()
+	defer a.mu.RUnlock()
 	return a.balance, true
 }
 
@@ -35,9 +37,12 @@ func (a *Account) Balance() (int, bool) {
 func (a *Account) Deposit(amount int) (int, bool) {
 	if a == nil {
 		return 0, false
-	} else if !a.open {
+	}
+	a.mu.RLock()
+	if !a.open {
 		return a.balance, false
 	}
+	a.mu.RUnlock()
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	if a.balance+amount < 0 {
@@ -52,5 +57,5 @@ func Open(amount int) *Account {
 	if amount < 0 {
 		return nil
 	}
-	return &Account{balance: amount, open: true}
+	return &Account{balance: amount, open: true, mu: sync.RWMutex{}}
 }
