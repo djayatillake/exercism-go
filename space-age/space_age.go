@@ -1,7 +1,10 @@
+// package space provides functions around calculating someones age on different planets
 package space
 
+// declaring type planet which is the name of a planet as a string
 type Planet string
 
+// declaring the ratio of time for a planet's orbit vs Earth's orbit
 var Planets = map[Planet]float64{
 	"Mercury":   0.2408467,
 	"Venus":     0.61519726,
@@ -15,8 +18,10 @@ var Planets = map[Planet]float64{
 	"Neptune": 164.79132,
 }
 
+// the number of seconds in an Earth Year
 const EarthSecs = 31557600
 
+// Age calculates someones age on a given planet with input of seconds and planet
 func Age(seconds float64, planet Planet) float64 {
 	if _, ok := Planets[planet]; !ok {
 		return 0
