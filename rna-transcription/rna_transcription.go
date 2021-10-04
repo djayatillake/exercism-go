@@ -3,14 +3,21 @@ package strand
 
 // ToRNA takes a dna string and outputs an rna string
 func ToRNA(dna string) string {
-	dna2rna := map[rune]rune{'G': 'C', 'C': 'G', 'T': 'A', 'A': 'U'}
 	rna := make([]rune, len(dna))
 	for i, dr := range dna {
-		rr, ok := dna2rna[dr]
-		if !ok {
+		if dr != 'G' && dr != 'C' && dr != 'T' && dr != 'A' {
 			return ""
 		}
-		rna[i] = rr
+		switch dr {
+		case 'G':
+			rna[i] = 'C'
+		case 'C':
+			rna[i] = 'G'
+		case 'T':
+			rna[i] = 'A'
+		case 'A':
+			rna[i] = 'U'
+		}
 	}
 	return string(rna)
 }
