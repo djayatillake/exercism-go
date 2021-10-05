@@ -10,31 +10,26 @@ var (
 
 // FromCodon translates codon to protein
 func FromCodon(codon string) (string, error) {
-	translate := map[string]string{
-		"AUG": "Methionine",
-		"UUU": "Phenylalanine",
-		"UUC": "Phenylalanine",
-		"UUA": "Leucine",
-		"UUG": "Leucine",
-		"UCU": "Serine",
-		"UCC": "Serine",
-		"UCA": "Serine",
-		"UCG": "Serine",
-		"UAU": "Tyrosine",
-		"UAC": "Tyrosine",
-		"UGU": "Cysteine",
-		"UGC": "Cysteine",
-		"UGG": "Tryptophan",
-		"UAA": "STOP",
-		"UAG": "STOP",
-		"UGA": "STOP",
-	}
-	if v, ok := translate[codon]; !ok {
-		return "", ErrInvalidBase
-	} else if v == "STOP" {
+	switch codon {
+	case "AUG":
+		return "Methionine", nil
+	case "UUU", "UUC":
+		return "Phenylalanine", nil
+	case "UUA", "UUG":
+		return "Leucine", nil
+	case "UCU", "UCC", "UCA", "UCG":
+		return "Serine", nil
+	case "UAU", "UAC":
+		return "Tyrosine", nil
+	case "UGU", "UGC":
+		return "Cysteine", nil
+	case "UGG":
+		return "Tryptophan", nil
+	case "UAA", "UAG", "UGA":
 		return "", ErrStop
+	default:
+		return "", ErrInvalidBase
 	}
-	return translate[codon], nil
 }
 
 // FromRNA translates an RNA string to a slice of proteins
