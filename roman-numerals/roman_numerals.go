@@ -3,7 +3,7 @@ package romannumerals
 
 import "errors"
 
-// bmc is a helper function which takes a big middle and large numeral and outputs the correct pattern for an arabic digit
+// bms is a helper function which takes big, middle and large numerals and outputs the correct pattern for an arabic digit
 func bms(to9 int, big, mid, sma string) string {
 	switch {
 	case to9 == 9:
