@@ -2,25 +2,18 @@
 package pangram
 
 import (
-	"strings"
+	"unicode"
 )
 
 // IsPangram checks if a string is a pangram
 func IsPangram(input string) bool {
-	runes := map[rune]bool{
-		'a': false, 'b': false, 'c': false, 'd': false, 'e': false, 'f': false,
-		'g': false, 'h': false, 'i': false, 'j': false, 'k': false, 'l': false,
-		'm': false, 'n': false, 'o': false, 'p': false, 'q': false, 'r': false,
-		's': false, 't': false, 'u': false, 'v': false, 'w': false, 'x': false,
-		'y': false, 'z': false,
-	}
-	for _, rune := range strings.ToLower(input) {
-		runes[rune] = true
-	}
-	for _, bools := range runes {
-		if !bools {
-			return false
+	set := 0
+	for _, r := range input {
+		if !unicode.IsLetter(r) {
+			continue
 		}
+		d := unicode.ToLower(r) - 'a'
+		set |= 1 << d
 	}
-	return true
+	return set == 67108863
 }
