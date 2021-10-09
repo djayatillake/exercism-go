@@ -23,14 +23,10 @@ func Nth(n int) (int, bool) {
 
 // is prime determines if a number is prime using an input list of primes
 func is_prime(num int, primes []int) bool {
-	factors := []int{}
 	for _, p := range primes {
 		if num%p == 0 {
-			factors = append(factors, p)
+			return false
 		}
 	}
-	if len(factors) == 0 {
-		return true
-	}
-	return false
+	return true
 }
