@@ -1,12 +1,3 @@
-// euclids formula: pair of integers m and n with m>n>0
-// a=m**2 - n**2, b = 2mn, c=m**2+n**2
-// therefore to find a pythagorean triple that adds up to N
-// N = 2 m**2 + 2mn
-// N/2 = m**2 + mn
-// can start with a n = 1 iterate over m = 2 and above until N is hit or exceeded
-// then increment n if N is exceed and start again
-// storing all triples that work
-
 // package pythagorean contains functions which returns pythagorean triplets
 package pythagorean
 
