@@ -11,7 +11,14 @@ func Nth(n int) (int, bool) {
 	count := 0
 	primes := []int{}
 	for count < n {
-		if is_prime(num, primes) {
+		is_prime := true
+		for _, p := range primes {
+			if num%p == 0 {
+				is_prime = false
+				break
+			}
+		}
+		if is_prime {
 			last_prime = num
 			primes = append(primes, num)
 			count++
@@ -19,14 +26,4 @@ func Nth(n int) (int, bool) {
 		num++
 	}
 	return last_prime, true
-}
-
-// is prime determines if a number is prime using an input list of primes
-func is_prime(num int, primes []int) bool {
-	for _, p := range primes {
-		if num%p == 0 {
-			return false
-		}
-	}
-	return true
 }
