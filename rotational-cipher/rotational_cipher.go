@@ -3,8 +3,6 @@ package rotationalcipher
 
 import "unicode"
 
-const letters = "abcdefghijklmnopqrstuvwxyz"
-
 // RotationalCipher returns a cipher from a string and rotation int
 func RotationalCipher(input string, shift int) string {
 	runes := make([]rune, len(input))
@@ -13,12 +11,10 @@ func RotationalCipher(input string, shift int) string {
 			runes[i] = r
 			continue
 		}
-		lower_r := unicode.ToLower(r)
-		shiftr := letters[(int(lower_r-'a')+shift)%26]
 		if unicode.IsUpper(r) {
-			runes[i] = unicode.ToUpper(rune(shiftr))
+			runes[i] = 'A' + ((r - 'A' + rune(shift)) % 26)
 		} else {
-			runes[i] = rune(shiftr)
+			runes[i] = 'a' + ((r - 'a' + rune(shift)) % 26)
 		}
 	}
 	return string(runes)
