@@ -20,17 +20,9 @@ func Encode(input string) string {
 		padding = c - (len(cleaned_input) % c)
 	}
 	cleaned_input_pad := cleaned_input + strings.Repeat(" ", padding)
-	rows := []string{}
-	for i := 0; i < len(cleaned_input_pad); i += c {
-		rows = append(rows, cleaned_input_pad[i:i+c])
-	}
 	rowsc := make([]string, c)
-	for i, _ := range rowsc {
-		nrow := []rune{}
-		for _, row := range rows {
-			nrow = append(nrow, rune(row[i]))
-		}
-		rowsc[i] = string(nrow)
+	for i, r := range cleaned_input_pad {
+		rowsc[i%c] += string(r)
 	}
 	return strings.Join(rowsc, " ")
 }
