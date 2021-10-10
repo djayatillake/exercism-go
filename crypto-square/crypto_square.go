@@ -8,18 +8,14 @@ import (
 )
 
 // Encode a string using cryptosquare method
-func Encode(input string) (encoded string) {
+func Encode(input string) string {
 	if input == "" {
-		return
+		return ""
 	}
 	reg, _ := regexp.Compile("[^a-zA-Z0-9]+")
 	cleaned_input := reg.ReplaceAllString(input, "")
 	lower_input := strings.ToLower(cleaned_input)
-	cf := math.Sqrt(float64(len(lower_input)))
-	c := int(cf)
-	if cf > float64(c) {
-		c++
-	}
+	c := int(math.Ceil(math.Sqrt(float64(len(lower_input)))))
 	padding := 0
 	if len(lower_input)%c > 0 {
 		padding = c - (len(lower_input) % c)
@@ -37,12 +33,5 @@ func Encode(input string) (encoded string) {
 		}
 		rowsc[i] = string(nrow)
 	}
-	for i, row := range rowsc {
-		if i < len(rowsc)-1 {
-			encoded += row + " "
-		} else {
-			encoded += row
-		}
-	}
-	return
+	return strings.Join(rowsc, " ")
 }
