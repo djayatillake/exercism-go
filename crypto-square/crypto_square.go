@@ -12,18 +12,17 @@ func Encode(input string) string {
 	if input == "" {
 		return ""
 	}
-	reg, _ := regexp.Compile("[^a-zA-Z0-9]+")
-	cleaned_input := reg.ReplaceAllString(input, "")
-	lower_input := strings.ToLower(cleaned_input)
-	c := int(math.Ceil(math.Sqrt(float64(len(lower_input)))))
+	reg, _ := regexp.Compile("[^a-z0-9]+")
+	cleaned_input := reg.ReplaceAllString(strings.ToLower(input), "")
+	c := int(math.Ceil(math.Sqrt(float64(len(cleaned_input)))))
 	padding := 0
-	if len(lower_input)%c > 0 {
-		padding = c - (len(lower_input) % c)
+	if len(cleaned_input)%c > 0 {
+		padding = c - (len(cleaned_input) % c)
 	}
-	lower_input_pad := lower_input + strings.Repeat(" ", padding)
+	cleaned_input_pad := cleaned_input + strings.Repeat(" ", padding)
 	rows := []string{}
-	for i := 0; i < len(lower_input_pad); i += c {
-		rows = append(rows, lower_input_pad[i:i+c])
+	for i := 0; i < len(cleaned_input_pad); i += c {
+		rows = append(rows, cleaned_input_pad[i:i+c])
 	}
 	rowsc := make([]string, c)
 	for i, _ := range rowsc {
