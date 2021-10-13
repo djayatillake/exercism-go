@@ -24,7 +24,7 @@ func Classify(input int64) (Classification, error) {
 // ClassifyDetail checks if a number is perfect deficient or abundant
 func ClassifyDetail(input int64) Classification {
 	sum := int64(0)
-	for i := int64(1); i < input; i++ {
+	for i := int64(1); i < input/2+1; i++ {
 		if input%i == 0 {
 			sum += i
 		}
