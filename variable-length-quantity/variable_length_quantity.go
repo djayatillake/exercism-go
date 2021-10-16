@@ -30,14 +30,13 @@ func DecodeVarint(input []byte) (ret []uint32, err error) {
 	sum := uint32(0)
 	incomplete := true
 	for _, v := range input {
+		sum += uint32(v & 127)
 		if uint32(v)&(1<<7) == 0 {
-			sum += uint32(v)
 			ret = append(ret, sum)
 			sum = uint32(0)
 			incomplete = false
 		} else {
-			sum = sum << 7
-			sum += (uint32(v) - 128) << 7
+			sum <<= 7
 			incomplete = true
 		}
 	}
