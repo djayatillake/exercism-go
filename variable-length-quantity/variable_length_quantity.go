@@ -30,7 +30,7 @@ func DecodeVarint(input []byte) (ret []uint32, err error) {
 	sum := uint32(0)
 	incomplete := true
 	for _, v := range input {
-		sum += uint32(v & 127)
+		sum += uint32(v & 127) // strips the bit that just says it's not final bit
 		if uint32(v)&(1<<7) == 0 {
 			ret = append(ret, sum)
 			sum = uint32(0)
