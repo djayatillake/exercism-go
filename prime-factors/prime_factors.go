@@ -13,7 +13,7 @@ func Factors(n int64) []int64 {
 	for num := int64(3); n > 1; num += 2 {
 		for n%num == 0 {
 			factors = append(factors, num)
-			n /= num
+			n /= num // because you exhaust all divisions for a prime number, all of it's multiples are also exhaused
 		}
 	}
 	return factors
