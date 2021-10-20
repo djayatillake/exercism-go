@@ -2,6 +2,7 @@ package ledger
 
 import (
 	"errors"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -15,30 +16,27 @@ type Entry struct {
 func FormatLedger(currency string, locale string, entries []Entry) (string, error) {
 	var entriesCopy []Entry
 	entriesCopy = append(entriesCopy, entries...)
-	if len(entries) == 0 {
-		if _, err := FormatLedger(currency, "en-US", []Entry{{Date: "2014-01-01", Description: "", Change: 0}}); err != nil {
-			return "", err
-		}
+	switch {
+	case currency == "":
+		return "", errors.New("empty currency")
+	case currency != "EUR" && currency != "USD":
+		return "", errors.New("invalid currency")
+	case locale == "":
+		return "", errors.New("empty locale")
+	case locale != "nl-NL" && locale != "en-US":
+		return "", errors.New("invalid locale")
 	}
-	m1 := map[bool]int{true: 0, false: 1}
-	m2 := map[bool]int{true: -1, false: 1}
-	es := entriesCopy
-	for len(es) > 1 {
-		first, rest := es[0], es[1:]
-		success := false
-		for !success {
-			success = true
-			for i, e := range rest {
-				if (m1[e.Date == first.Date]*m2[e.Date < first.Date]*4 +
-					m1[e.Description == first.Description]*m2[e.Description < first.Description]*2 +
-					m1[e.Change == first.Change]*m2[e.Change < first.Change]*1) < 0 {
-					es[0], es[i+1] = es[i+1], es[0]
-					success = false
-				}
-			}
+	sort.Slice(entriesCopy, func(i, j int) bool {
+		ti, tj := entriesCopy[i], entriesCopy[j]
+		switch {
+		case ti.Date != tj.Date:
+			return ti.Date < tj.Date
+		case ti.Description != tj.Description:
+			return ti.Description < tj.Description
+		default:
+			return ti.Change < tj.Change
 		}
-		es = es[1:]
-	}
+	})
 
 	var s string
 	if locale == "nl-NL" {
@@ -55,8 +53,6 @@ func FormatLedger(currency string, locale string, entries []Entry) (string, erro
 			"Description" +
 			strings.Repeat(" ", 25-len("Description")) +
 			" | " + "Change" + "\n"
-	} else {
-		return "", errors.New("")
 	}
 	// Parallelism, always a great idea
 	co := make(chan struct {
