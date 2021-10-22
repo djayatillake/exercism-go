@@ -3,10 +3,6 @@ package linkedlist
 
 import "errors"
 
-// func (l *List) PushFront(v interface{})
-// func (l *List) PushBack(v interface{})
-// func (l *List) PopFront() (interface{}, error)
-// func (l *List) PopBack() (interface{}, error)
 type Node struct {
 	Parent *Node
 	Val    interface{}
