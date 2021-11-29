@@ -85,6 +85,12 @@ func main() {
 		fmt.Printf("%-3s| %s | %-14d | %-14d\n",
 			report.id, report.week, report.net_num_people, report.max_num_people)
 	}
+	/* I am aware that this code generates a slightly different result to my sql solution
+	this is due to this solution being unopinionated about which of consecutive same
+	event types are valid; it will just use the first one that can be validly used depending
+	on the state of the people in the project at that time. The sql solution would have
+	not been able to handle processing the consecutive same event types and therefore
+	they were filtered in an opinionated way favouring the earliest valid event. */
 }
 
 // weekTruncUTC truncates a time field to the start of the week it is in
